@@ -1,28 +1,11 @@
 name: Preview deploy dev for razorpay content on betasite.razorpay.com
 
 on:
-  workflow_dispatch:
-    paths:
-      - docs-website/**
-      - from-old-website-to-be-removed/**
-      - .github/workflows/preview-deploy-dev.yml
-
-    branches-ignore:
-      - master
-
-defaults:
-  run:
-    working-directory: docs-website
-
-env:
-  APP_NAME: docs
-  GITHUB_ACCESS_TOKEN: ${{ secrets.CI_BOT_TOKEN }}
-  NODE_VERSION: 14.16.1
-  DISTRIBUTION: E1IWWDYM517KOH
+  workflow_dispatch
 
 jobs:
-  deploy-preview-razorpay-content:
-    name: Deploy dev changes on betasite.razorpay.com/
+  deploy-test:
+    name: deploy test
     runs-on: [self-hosted]
     steps:
     - name: Checkout Code
