@@ -27,7 +27,7 @@ jobs:
         echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
     - name: Test manual trigger
-      run: echo "This is a manual trigger ${env.BRANCH}"
+      run: echo "This is a manual trigger ${{ env.BRANCH }}"
 
     # - name: Build razorpay org docs website for beta
     #   env:
