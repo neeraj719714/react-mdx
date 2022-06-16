@@ -1,0 +1,88 @@
+name: Preview deploy dev for razorpay content on betasite.razorpay.com
+
+on:
+  workflow_dispatch:
+    paths:
+      - docs-website/**
+      - from-old-website-to-be-removed/**
+      - .github/workflows/preview-deploy-dev.yml
+
+    branches-ignore:
+      - master
+
+defaults:
+  run:
+    working-directory: docs-website
+
+env:
+  APP_NAME: docs
+  GITHUB_ACCESS_TOKEN: ${{ secrets.CI_BOT_TOKEN }}
+  NODE_VERSION: 14.16.1
+  DISTRIBUTION: E1IWWDYM517KOH
+
+jobs:
+  deploy-preview-razorpay-content:
+    name: Deploy dev changes on betasite.razorpay.com/
+    runs-on: [self-hosted]
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Test manual trigger
+      run: echo "This is a manual trigger"
+
+    # - name: Setup NodeJS v14
+    #   uses: actions/setup-node@v2
+    #   with:
+    #     node-version: ${{ env.NODE_VERSION }}
+
+    # - name: Install Yarn
+    #   run: npm install -g yarn
+
+    # - name: Install packages
+    #   run: yarn install --frozen-lockfile
+
+    # - name: Set Branch
+    #   run:
+    #     echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
+    # - name: Build razorpay org docs website for beta
+    #   env:
+    #     SENTRY_SOURCE_MAP_UPLOAD: false
+    #     UNIVERSE_PUBLIC_ASSETS_URL: /docs/${{ env.BRANCH }}
+    #     PUBLIC_PATH: /docs/${{ env.BRANCH }}
+    #     UNIVERSE_PUBLIC_COMMIT_SHA: ${{ github.sha }}
+    #   run: yarn run production:out
+
+    # - name: Deploy for razorpay/<<branch>> path
+    #   run: aws s3 sync --acl public-read --follow-symlinks ./dist/ s3://rzp-1018-nonprod-betasite.razorpay.com/docs/${{ env.BRANCH }}
+    #   env:
+    #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_STAGE_ACCESS_KEY_ID }}
+    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_STAGE_SECRET_ACCESS_KEY }}
+    #     AWS_REGION: ap-south-1
+
+    # - name: Invalidate Cloudfront Cache
+    #   env:
+    #     PATHS: /docs/${{ env.BRANCH }}/*
+    #     AWS_REGION: ap-south-1
+    #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_STAGE_ACCESS_KEY_ID }}
+    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_STAGE_SECRET_ACCESS_KEY }}
+    #   run: aws cloudfront create-invalidation --distribution-id ${{ env.DISTRIBUTION }} --paths ${{ env.PATHS }}
+
+    # - name: Upload sourcemaps to sentry
+    #   uses: getsentry/action-release@v1
+    #   env:
+    #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    #     SENTRY_ORG: rzp
+    #     SENTRY_PROJECT: docs-website
+    #   with:
+    #     environment: staging
+    #     version: ${{ github.sha }}
+    #     sourcemaps: docs-website/build/ docs-website/dist/
+    #     ignore_empty: true
+    #     ignore_missing: true
+
+    #   # For debugging purposes, in case of failures
+    # - name: List all build files
+    #   if: ${{always()}}
+    #   run: ls -laR build/ dist/
