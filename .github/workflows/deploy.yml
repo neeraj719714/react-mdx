@@ -25,9 +25,9 @@ jobs:
     # - name: Install packages
     #   run: yarn install --frozen-lockfile
 
-    # - name: Set Branch
-    #   run:
-    #     echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+    - name: Set Branch
+      run:
+        echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
     # - name: Build razorpay org docs website for beta
     #   env:
