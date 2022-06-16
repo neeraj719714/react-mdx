@@ -6,7 +6,7 @@ on:
 jobs:
   deploy-test:
     name: deploy test
-    runs-on: [self-hosted]
+    runs-on: ubnutu-latest
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
