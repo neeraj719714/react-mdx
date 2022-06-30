@@ -8,9 +8,6 @@ on:
         type: boolean
         default: false
         required: false
-    ref:
-      refs/heads/
-
         
 jobs:
   deploy-test:
@@ -36,7 +33,7 @@ jobs:
         echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
     - name: Test manual trigger
-      run: echo "This is a manual trigger ${{ github.ref_name }} input ${{ inputs.params }} ref ${{ ref }}"
+      run: echo "This is a manual trigger ${{ github.ref_name }} input ${{ inputs.params }}"
 
     # - name: Build razorpay org docs website for beta
     #   env:
