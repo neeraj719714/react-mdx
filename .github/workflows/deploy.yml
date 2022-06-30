@@ -5,8 +5,8 @@ on:
     inputs:
       params:
         description: "give options"
-        type: boolean
-        default: false
+        type: string
+        default: "n"
         required: false
         
 jobs:
