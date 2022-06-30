@@ -2,9 +2,13 @@ name: Preview deploy dev for razorpay content on betasite.razorpay.com
 
 on:
   workflow_dispatch:
-    branches-ignore:
-      - master
-
+    inputs:
+      params:
+        description: "give options"
+        type: boolean
+        default: false
+        required: false
+        
 jobs:
   deploy-test:
     name: deploy test
@@ -29,7 +33,7 @@ jobs:
         echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
     - name: Test manual trigger
-      run: echo "This is a manual trigger ${{ github.ref_name }}"
+      run: echo "This is a manual trigger ${{ github.ref_name }} input ${{ inputs.params }}"
 
     # - name: Build razorpay org docs website for beta
     #   env:
