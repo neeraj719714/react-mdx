@@ -6,7 +6,7 @@ on:
       params:
         description: "give options"
         type: string
-        default: 'n'
+        default: 'y'
         required: false
         
 jobs:
