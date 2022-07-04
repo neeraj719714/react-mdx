@@ -6,14 +6,14 @@ on:
       params:
         description: "give options"
         type: string
-        default: "n"
+        default: 'n'
         required: false
         
 jobs:
   deploy-test:
     name: deploy test
     runs-on: ubuntu-latest
-    if: github.event.inputs.params == "y"
+    if: github.event.inputs.params == 'y'
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
