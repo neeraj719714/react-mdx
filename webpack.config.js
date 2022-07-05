@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const remarkPlugin = require('./custom-plugin');
 
 module.exports = {
   entry: "./src/index.js",
@@ -29,7 +30,13 @@ module.exports = {
       },
       {
         test: /\.mdx?$/,
-        use: ["babel-loader", "@mdx-js/loader"],
+        use: ["babel-loader",{
+          loader:"@mdx-js/loader",
+          options:{
+            remarkPlugins: [remarkPlugin],
+          }
+        }
+        ],
       },
     ],
   },
